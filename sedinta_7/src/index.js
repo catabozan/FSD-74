@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import expressFileUpload from "express-fileupload"
 import { registerRoutes } from "./routes/registerRoutes.js";
+import "path"
 
 dotenv.config()
 let app = express();
