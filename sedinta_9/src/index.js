@@ -5,14 +5,13 @@ import expressFileUpload from "express-fileupload";
 import { registerRoutes } from "./routes/routes.js";
 import cluster from "node:cluster"
 import process from "node:process"
-//import { EventEmitter } from "node:stream";
-import { deleteUserSettingsById } from "./controllers/userSettingsController.js";
+import os from "os"
 
-if (cluster.isPrimary){
+if (cluster.isPrimary && os.cpus().length > 1){
   console.log(`Primary processId: ${process.pid}`)
   let clusterInstances = []
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < os.cpus().length; i++) {
     let newClusterInstance = cluster.fork()
     newClusterInstance.on("message", (message) => {
       console.log(message)
